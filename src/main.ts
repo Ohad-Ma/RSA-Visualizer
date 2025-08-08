@@ -17,15 +17,13 @@ generateBtn.addEventListener("click", () => {
 
   const keys = generateRSAKeys(p,q);
 
-  output.innerText = `
-  p = ${keys.p}
-  q = ${keys.q} 
-  n = ${keys.n}
-  φ(n) = ${keys.phi}
-  e = ${keys.e}
-  d = ${keys.d}
-  
-  🔓 Public Key: (${keys.e}, ${keys.n})
-  🔐 Private Key: (${keys.d}, ${keys.n})
-  `.trim();
+output.innerText = [
+  `p=${keys.p}`,
+  `q=${keys.q}`,
+  `n=${keys.n}`,
+  `φ(n)=${keys.phi}`,
+  `e=${keys.e}`,
+  `d=${keys.d}`
+].join(' | ')
++ `\n\n🔓 Public Key: (${keys.e}, ${keys.n}) | 🔐 Private Key: (${keys.d}, ${keys.n})`;
 });
