@@ -1,25 +1,23 @@
-import './style.css';
-import { apiGenerateKeys, apiEncrypt, apiDecrypt } from './api';
+import "./style.css";
+import { apiGenerateKeys, apiEncrypt, apiDecrypt } from "./api";
 
-const pInput = document.getElementById("pInput") as HTMLInputElement | null;
-const qInput = document.getElementById("qInput") as HTMLInputElement | null;
 const generateBtn = document.getElementById("generateBtn") as HTMLButtonElement | null;
 const output = document.getElementById("output") as HTMLDivElement | null;
 
-function render(msg: string) {
-  if (!output) return;
-  output.innerHTML = msg;
+function render(html: string) {
+  if (output) output.innerHTML = html;
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener("DOMContentLoaded", () => {
   if (!generateBtn) return;
 
-  generateBtn.addEventListener('click', async () => {
+  generateBtn.addEventListener("click", async () => {
     try {
       render(`<span class="text-xs text-gray-500">Generating keys…</span>`);
-      // For the simple RSA core, use small primes while learning:
-      const keys = await apiGenerateKeys(32); // later: 256/512 with the faster utils
-      const { p, q, n, phi, e, d } = keys;
+
+      // Use small primes while developing (fast). Later try 64, 128.
+      const keys = await apiGenerateKeys(32);
+      const { p, q, n, phi, e, d } = keys; // all strings (safe for big ints)
 
       render(`
         <span class="text-xs">
@@ -31,11 +29,11 @@ window.addEventListener('DOMContentLoaded', () => {
         </span>
       `);
 
-      // (Optional quick crypto smoke test)
-      const enc = await apiEncrypt("HELLO", e, n);
-      const dec = await apiDecrypt(enc.cipher, d, n);
-      console.log('Cipher:', enc.cipher);
-      console.log('Decrypted:', dec.message);
+      // Optional smoke test: round-trip "HELLO" via backend
+      const enc = await apiEncrypt("HELLO", e, n);      // e,n as strings
+      const dec = await apiDecrypt(enc.cipher, d, n);   // cipher,d,n as strings
+      console.log("Cipher:", enc.cipher);
+      console.log("Decrypted:", dec.message);
 
     } catch (err: any) {
       render(`<span class="text-red-600 text-sm">Error: ${err?.message || err}</span>`);
