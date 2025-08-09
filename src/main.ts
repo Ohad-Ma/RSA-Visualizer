@@ -1,29 +1,44 @@
-import './style.css'
-import { generateRSAKeys } from './components/keygen.ts';
+import './style.css';
+import { apiGenerateKeys, apiEncrypt, apiDecrypt } from './api';
 
-const pInput = document.getElementById("pInput") as HTMLInputElement;
-const qInput = document.getElementById("qInput") as HTMLInputElement;
-const generateBtn = document.getElementById("generateBtn") as HTMLButtonElement;
-const output = document.getElementById("output") as HTMLDivElement;
+const pInput = document.getElementById("pInput") as HTMLInputElement | null;
+const qInput = document.getElementById("qInput") as HTMLInputElement | null;
+const generateBtn = document.getElementById("generateBtn") as HTMLButtonElement | null;
+const output = document.getElementById("output") as HTMLDivElement | null;
 
-function getRandomPrime(): number {
-  const primes = [61,67,71,73,79,83,89,97];
-  return primes[Math.floor(Math.random() * primes.length)];
+function render(msg: string) {
+  if (!output) return;
+  output.innerHTML = msg;
 }
 
-generateBtn.addEventListener("click", () => {
-  const p = parseInt(pInput.value) || getRandomPrime(); // We either add a prime number or leave it blank
-  const q = parseInt(qInput.value) || getRandomPrime(); // Same as above
+window.addEventListener('DOMContentLoaded', () => {
+  if (!generateBtn) return;
 
-  const keys = generateRSAKeys(p,q);
+  generateBtn.addEventListener('click', async () => {
+    try {
+      render(`<span class="text-xs text-gray-500">Generating keys…</span>`);
+      // For the simple RSA core, use small primes while learning:
+      const keys = await apiGenerateKeys(32); // later: 256/512 with the faster utils
+      const { p, q, n, phi, e, d } = keys;
 
-output.innerHTML = `
-  <span class="text-xs">
-    p=${keys.p}  q=${keys.q}  n=${keys.n}  φ(n)=${keys.phi}  e=${keys.e}  d=${keys.d}
-  </span>
-  <span class="font-bold">
-    <span class="text-yellow-600">🔓</span> Public Key: (${keys.e}, ${keys.n}) 
-    <span class="text-green-600">🔐</span> Private Key: (${keys.d}, ${keys.n})
-  </span>
-`;
+      render(`
+        <span class="text-xs">
+          p=${p} | q=${q} | n=${n} | φ(n)=${phi} | e=${e} | d=${d}
+        </span><br>
+        <span class="font-bold">
+          <span class="text-yellow-600">🔓</span> Public: (${e}, ${n}) |
+          <span class="text-green-600">🔐</span> Private: (${d}, ${n})
+        </span>
+      `);
+
+      // (Optional quick crypto smoke test)
+      const enc = await apiEncrypt("HELLO", e, n);
+      const dec = await apiDecrypt(enc.cipher, d, n);
+      console.log('Cipher:', enc.cipher);
+      console.log('Decrypted:', dec.message);
+
+    } catch (err: any) {
+      render(`<span class="text-red-600 text-sm">Error: ${err?.message || err}</span>`);
+    }
+  });
 });
