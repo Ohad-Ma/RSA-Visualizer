@@ -59,3 +59,35 @@ def modinv(a: int, m: int) -> int:
     g, x, _ = egcd(a, m)
     # By the gcd check above, g should be 1
     return x % m
+
+# ----------------- Primality & prime generation -----------------
+def is_probable_prime(n: int, rounds: int = 12) -> bool:
+    """Miller–Rabin probable prime test."""
+    if n < 2:
+        return False
+    # Quick checks for small primes
+    small_primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+    if n in small_primes:
+        return True
+    if any(n % p == 0 for p in small_primes):
+        return False
+
+    # Write n-1 = d * 2^r
+    r, d = 0, n - 1
+    while d % 2 == 0:
+        r += 1
+        d //= 2
+
+    # Random bases
+    for _ in range(rounds):
+        a = secrets.randbelow(n - 3) + 2  # a in [2, n-2]
+        x = modexp(a, d, n)
+        if x == 1 or x == n - 1:
+            continue
+        for _ in range(r - 1):
+            x = (x * x) % n
+            if x == n - 1:
+                break
+        else:
+            return False
+    return True
