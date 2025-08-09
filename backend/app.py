@@ -1,15 +1,10 @@
-import flask import flask, request, jsonify
-from flask_cros import CORS
-from rsa_utils import (
-    generate_int,
-    encrypt_int,
-    decrypt_int,
-    text_to_ints,
-    ints_to_text,
-)
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from rsa_utils import generate_keypair, encrypt_int, decrypt_int
+
 
 app = Flask(__name__)
-CROS(app) # Allow request from dev server 
+CORS(app) # Allow request from dev server 
 
 @app.post("/generate_keys")
 def generate_keys():
