@@ -91,3 +91,14 @@ def is_probable_prime(n: int, rounds: int = 12) -> bool:
         else:
             return False
     return True
+
+
+def random_prime(bits: int) -> int:
+    """Return a random probable prime with the given bit-length."""
+    if bits < 2:
+        raise ValueError("bits must be >= 2")
+    while True:
+        # Ensure top bit and oddness
+        candidate = secrets.randbits(bits) | (1 << (bits - 1)) | 1
+        if is_probable_prime(candidate):
+            return candidate
