@@ -27,6 +27,40 @@
   </button>
 
   <div id="output" class="text-sm bg-gray-100 p-2 rounded whitespace-pre-wrap"></div>
+  <hr class="my-2">
+
+<!-- Encrypt -->
+<div class="space-y-2">
+  <label class="block text-sm font-semibold">Plaintext</label>
+  <textarea id="plaintextInput" class="w-full p-2 border rounded min-h-[70px]" placeholder="Type a message to encrypt"></textarea>
+
+  <button id="encryptBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white py-1.5 px-3 rounded">
+    Encrypt (uses Public Key)
+  </button>
+
+  <div>
+    <label class="block text-sm mt-2">Cipher (comma-separated integers)</label>
+    <textarea id="cipherOutput" class="w-full p-2 border rounded min-h-[70px]" readonly></textarea>
+  </div>
+</div>
+
+<hr class="my-2">
+
+<!-- Decrypt -->
+<div class="space-y-2">
+  <label class="block text-sm font-semibold">Cipher (paste comma/space-separated)</label>
+  <textarea id="cipherInput" class="w-full p-2 border rounded min-h-[70px]" placeholder="e.g. 123,456,789"></textarea>
+
+  <button id="decryptBtn" class="bg-green-600 hover:bg-green-700 text-white py-1.5 px-3 rounded">
+    Decrypt (uses Private Key)
+  </button>
+
+  <div>
+    <label class="block text-sm mt-2">Decrypted Text</label>
+    <div id="plaintextOutput" class="w-full p-2 border rounded bg-white min-h-[44px]"></div>
+  </div>
+</div>
+
 </div>
 
 <script type ="module" src="/src/main.ts"></script>
