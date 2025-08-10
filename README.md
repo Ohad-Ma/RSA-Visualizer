@@ -13,7 +13,7 @@ This tool lets you **generate RSA keys**, **encrypt messages**, and **decrypt ci
 5. [Getting Started](#-getting-started)
 6. [API Documentation](#-api-documentation)
 7. [Screenshots](#-screenshots)
-8. [Educational Notes](#-educational-notes)
+8. [Notes](#-notes)
 
 ---
 
@@ -170,15 +170,8 @@ Decrypts a list of integers using the private key (d, n).
 }
 ```
 ---
-### 📝 Notes
-* All requests and responses use JSON.
-
-* CORS is enabled for easy frontend integration.
-
-* This is for educational purposes only — not secure for real-world cryptography.
-
 ### 📸 Screenshots
----
+
 * **Generate RSA keys without filling any prime numbers.**
 <p align="center">
   <img src="./src/assets/S_1.png" alt="Screenshot 1" width="390" height="600";/>
@@ -194,3 +187,13 @@ Decrypts a list of integers using the private key (d, n).
 
   <p align="center">
   <img src="./src/assets/S_3.png" alt="Screenshot 3" width="390" height="200";/></p>
+
+  ---
+### 📝 Notes
+* All requests and responses use JSON.
+
+* CORS is enabled for easy frontend integration.
+
+* This is for educational purposes only — not secure for real-world cryptography.
+
+---
