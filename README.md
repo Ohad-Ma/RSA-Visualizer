@@ -1,11 +1,11 @@
-# 🔐 RSA Visualizer
+# RSA Visualizer
 
 An **educational** RSA cryptography visualizer with a **TypeScript + Vite + Tailwind CSS** frontend and a **Python Flask** backend.  
 This tool lets you **generate RSA keys**, **encrypt messages**, and **decrypt ciphertext** — while showing you all the important numbers (p, q, n, φ(n), e, d) for learning purposes.
 
 ---
 
-## 📖 Table of Contents
+## Table of Contents
 1. [About the Project](#-about-the-project)
 2. [Features](#-features)
 3. [Tech Stack](#-tech-stack)
@@ -17,7 +17,7 @@ This tool lets you **generate RSA keys**, **encrypt messages**, and **decrypt ci
 
 ---
 
-## 📜 About the Project
+## About the Project
 RSA is one of the most famous public-key cryptosystems, but it’s often taught in theory without hands-on experience.  
 This project aims to make RSA **visual and interactive** by letting you:
 - See how **p** and **q** create **n** and **φ(n)**
@@ -31,17 +31,17 @@ It’s perfect for:
 
 ---
 
-## ✨ Features
-- **🔑 Key Generation**: Choose bit-length for primes (e.g., 16, 32, 64 bits).
-- **📤 Encryption**: Convert text to integers and encrypt with `(e, n)`.
-- **📥 Decryption**: Recover plaintext with `(d, n)`.
-- **📊 Live Key Display**: See p, q, n, φ(n), e, d in real-time.
-- **🌐 Modern UI**: Built with Tailwind CSS for responsive design.
-- **📦 Separation of Concerns**: Backend (Flask) for RSA math, Frontend (Vite + TS) for UI.
+## Features
+- ** Key Generation**: Choose bit-length for primes (e.g., 16, 32, 64 bits).
+- ** Encryption**: Convert text to integers and encrypt with `(e, n)`.
+- ** Decryption**: Recover plaintext with `(d, n)`.
+- ** Live Key Display**: See p, q, n, φ(n), e, d in real-time.
+- ** Modern UI**: Built with Tailwind CSS for responsive design.
+- ** Separation of Concerns**: Backend (Flask) for RSA math, Frontend (Vite + TS) for UI.
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### **Frontend**
 - [TypeScript](https://www.typescriptlang.org/)
@@ -55,7 +55,7 @@ It’s perfect for:
 
 ---
 
-## 📂 Folder Structure
+## Folder Structure
 ```graphql
 rsa-visualizer/
 │
@@ -74,15 +74,15 @@ rsa-visualizer/
 ```
 
 
-## 🚀 Getting Started
+## Getting Started
 
-### 1️⃣ Clone the repo
+### 1. Clone the repo
 ```bash
 git clone https://github.com/your-username/rsa-visualizer.git
 cd rsa-visualizer
 ```
 
-### 2️⃣ Setup Backend
+### 2. Setup Backend
 ```bash
 cd backend
 python -m venv .venv
@@ -97,7 +97,7 @@ python app.py
 
 Runs at http://127.0.0.1:5000
 
-### 3️⃣ Setup Frontend
+### 3. Setup Frontend
 ```bash
 cd ..
 npm install
@@ -105,7 +105,7 @@ npm run dev
 ```
 Runs at http://127.0.0.1:5173
 
-## 📡 API Documentation
+## API Documentation
 
 The backend is a **Flask-based REST API** that powers RSA key generation, encryption, and decryption.  
 All endpoints accept and return **JSON**. By default, the server runs at: http://127.0.0.1:5000
@@ -113,7 +113,7 @@ All endpoints accept and return **JSON**. By default, the server runs at: http:/
 
 ---
 
-### 🔑 `POST /generate_keys`
+### `POST /generate_keys`
 
 Generates a new RSA keypair.
 
@@ -134,7 +134,7 @@ Generates a new RSA keypair.
 }
 ```
 
-### 📤 POST /encrypt
+### POST /encrypt
 Encrypts a plaintext message using the public key (e, n).
 
 #### Request JSON:
@@ -152,7 +152,7 @@ Encrypts a plaintext message using the public key (e, n).
   "cipher": [2790, 1313, 745, 745, 2185]
 }
 ```
-### 📥 POST /decrypt
+### POST /decrypt
 Decrypts a list of integers using the private key (d, n).
 
 #### Request JSON:
@@ -170,7 +170,7 @@ Decrypts a list of integers using the private key (d, n).
 }
 ```
 ---
-### 📸 Screenshots
+### Screenshots
 
 * **Generate RSA keys without filling any prime numbers.**
 <p align="center">
@@ -189,7 +189,7 @@ Decrypts a list of integers using the private key (d, n).
   <img src="./src/assets/S_3.png" alt="Screenshot 3" width="390" height="200";/></p>
 
   ---
-### 📝 Notes
+### Notes
 * All requests and responses use JSON.
 
 * CORS is enabled for easy frontend integration.
